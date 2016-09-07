@@ -40,8 +40,13 @@
     state: directory
   tags: nginx
 
+# - name: Create self-signed SSL cert
+#   command: "openssl req -new -nodes -x509 -subj "/C=US/ST=California/L=MountainView/O=IT/CN=${server_name}" -days 3650 -keyout {{ ssl_certificate_key_path }} -out {{ ssl_certificate_path }} -extensions v3_ca"
+#     creates: "{{ ssl_certificate_path }}"
+#   notify: restart nginx
+#   tags: nginx
+
 - name: Create self-signed SSL cert
-  command: "openssl req -new -nodes -x509 -subj "/C=US/ST=California/L=MountainView/O=IT/CN=${server_name}" -days 3650 -keyout {{ ssl_certificate_key_path }} -out {{ ssl_certificate_path }} -extensions v3_ca"
-    creates: "{{ ssl_certificate_path }}"
+  command: openssl req -new -nodes -x509 -subj "/C=US/ST=California/L=MountainView/O=IT/CN=${server_name}" -days 3650 -keyout {{ ssl_certificate_key_path }} -out {{ ssl_certificate_path }} -extensions v3_ca creates={{ ssl_certificate_path }}
   notify: restart nginx
   tags: nginx

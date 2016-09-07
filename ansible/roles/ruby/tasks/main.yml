@@ -12,8 +12,13 @@
   command: /bin/bash -l -c 'gem install bundler --no-ri --no-rdoc'
   sudo_user: "{{ ruby_user_name }}"
 
+# - name: bundle install
+#   command: /bin/bash -l -c 'bundle install'
+#     chdir: "{{ app_path }}"
+#   sudo_user: "{{ ruby_user_name }}"
+#   when: target == 'virtualbox'
+
 - name: bundle install
-  command: /bin/bash -l -c 'bundle install'
-    chdir: "{{ app_path }}"
-  sudo_user: "{{ ruby_user_name }}"
+  command: /bin/bash -l -c 'bundle install' chdir={{ app_path }}
+  sudo_user: '{{ ruby_user_name }}'
   when: target == 'virtualbox'

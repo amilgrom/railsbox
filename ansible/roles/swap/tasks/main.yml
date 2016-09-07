@@ -1,7 +1,10 @@
 ---
+# - name: Create swap file
+#   command: 'fallocate -l {{ vm_swap }}M {{ swap_file_path }}'
+#     creates: "{{ swap_file_path }}"
+
 - name: Create swap file
-  command: "fallocate -l {{ vm_swap }}M {{ swap_file_path }}"
-    creates: "{{ swap_file_path }}"
+  command: fallocate -l {{ vm_swap }}M {{ swap_file_path }} creates={{ swap_file_path }}
 
 - name: Change swap permissions
   file:
