@@ -1,6 +1,6 @@
 ---
-vim_autoload_path: '{{ user_home_path }}/.vim/autoload'
-vim_bundle_path: '{{ user_home_path }}/.vim/bundle'
+vim_autoload_path: "{{ user_home_path }}/.vim/autoload"
+vim_bundle_path: "{{ user_home_path }}/.vim/bundle"
 vim_plugins:
   - name: vim-sensible
     git: git://github.com/tpope/vim-sensible.git

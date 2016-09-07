@@ -1,4 +1,6 @@
 ---
 - name: restart application
-  service: name={{ unicorn_app_name }} state=restarted
+  service:
+    name: "{{ unicorn_app_name }}"
+    state: restarted
   when: "'application' in group_names"
