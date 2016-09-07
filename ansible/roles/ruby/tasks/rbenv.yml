@@ -32,7 +32,7 @@
     version: "{{ item.version }}"
     accept_hostkey: yes
   become_user: "{{ user_name }}"
-  with_items: rbenv_plugins
+  with_items: "{{ rbenv_plugins }}"
 
 - name: Check if ruby installed
   shell: "{{ rbenv_bin }} versions | grep -q {{ rbenv_ruby_version }}"

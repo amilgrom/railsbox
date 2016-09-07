@@ -56,12 +56,12 @@
   changed_when: False
   failed_when: False
   register: detect_rubies
-  with_items: rvm1_rubies
+  with_items: "{{ rvm1_rubies }}"
 
 - name: Install rubies
   command: "{{ rvm1_rvm }} install {{ item.item }} --binary"
   when: item.rc != 0
-  with_items: detect_rubies.results
+  with_items: "{{ detect_rubies.results }}"
   become_user: "{{ rvm1_user }}"
   register: install_rubies
   ignore_errors: yes
@@ -71,7 +71,7 @@
 - name: Install rubies (non-binary)
   command: "{{ rvm1_rvm }} install {{ item.item }}"
   when: item.rc != 0 and install_rubies.results[0].rc != 0
-  with_items: detect_rubies.results
+  with_items: "{{ detect_rubies.results }}"
   become_user: "{{ rvm1_user }}"
 
 - name: Detect default ruby version
@@ -93,7 +93,7 @@
     group: 'root'
     force: yes
   when: not '--user-install' in rvm1_install_flags
-  with_items: rvm1_symlink_binaries
+  with_items: "{{ rvm1_symlink_binaries }}"
 
 - name: Create rvm.sh
   template:

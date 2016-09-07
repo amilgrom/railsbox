@@ -34,4 +34,4 @@
     version: master
     accept_hostkey: yes
   become_user: "{{ user_name }}"
-  with_items: vim_plugins
+  with_items: "{{ vim_plugins }}"

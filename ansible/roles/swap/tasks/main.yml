@@ -13,6 +13,7 @@
 
 - name: Check swap file type
   command: "file {{ swap_file_path }}"
+  changed_when: false # never
   register: swapfile
 
 - name: Make swap file

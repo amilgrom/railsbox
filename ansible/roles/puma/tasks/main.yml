@@ -9,9 +9,16 @@
 #     chdir: "{{ app_path }}"
 #   sudo: no
 
+- name: Check if puma is installed
+  shell: /bin/bash -l -c 'which puma' chdir={{ app_path }}
+  become_user: "{{ ruby_user_name }}" # make stdin tty
+  register: puma_gem_check_result
+  changed_when: false # never
+
 - name: Install puma
   command: /bin/bash -l -c 'gem install puma --no-ri --no-rdoc' chdir={{ app_path }}
-  become: no
+  become: false
+  when: puma_gem_check_result.rc != 0
 
 - name: Create directories for sockets and pids
   file:
@@ -20,7 +27,7 @@
   with_items:
     - pids
     - sockets
-  become: no
+  become: false
 
 - name: Create upstart config
   template:
