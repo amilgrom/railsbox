@@ -7,7 +7,7 @@
 - name: Install unicorn
   command: /bin/bash -l -c 'gem install unicorn --no-ri --no-rdoc'
     chdir: "{{ app_path }}"
-  sudo: no
+  become: no
 
 - name: Create upstart config
   template:

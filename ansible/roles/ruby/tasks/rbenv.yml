@@ -9,7 +9,7 @@
     dest: "{{ rbenv_path }}"
     version: "{{ rbenv_version }}"
     accept_hostkey: yes
-  sudo_user: "{{ user_name }}"
+  become_user: "{{ user_name }}"
 
 - name: Create rbenv.sh
   template:
@@ -31,24 +31,24 @@
     dest: "{{ rbenv_plugins_path }}/{{ item.name }}"
     version: "{{ item.version }}"
     accept_hostkey: yes
-  sudo_user: "{{ user_name }}"
+  become_user: "{{ user_name }}"
   with_items: rbenv_plugins
 
 - name: Check if ruby installed
   shell: "{{ rbenv_bin }} versions | grep -q {{ rbenv_ruby_version }}"
   register: ruby_installed
   ignore_errors: yes
-  sudo_user: "{{ user_name }}"
+  become_user: "{{ user_name }}"
 
 - name: Install ruby
   command: "{{ rbenv_bin }} install {{ rbenv_ruby_version }}"
-  sudo_user: "{{ user_name }}"
+  become_user: "{{ user_name }}"
   when: ruby_installed|failed
 
 - name: Set global ruby version
   command: "{{ rbenv_bin }} global {{ rbenv_ruby_version }}"
-  sudo_user: "{{ user_name }}"
+  become_user: "{{ user_name }}"
 
 - name: Rehash rbenv
   command: "{{ rbenv_bin }} rehash"
-  sudo_user: "{{ user_name }}"
+  become_user: "{{ user_name }}"

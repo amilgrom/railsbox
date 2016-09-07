@@ -30,7 +30,7 @@
   stat:
     path: "../../config/{{ item }}.yml"
   connection: local
-  sudo: no
+  become: no
   register: configs
   with_items:
     - database
