@@ -1,0 +1,42 @@
+---
+- set_fact:
+    this_release_path: "{{ app_path }}"
+
+- debug:
+    msg: "New release path {{ this_release_path }}"
+
+# VM: No directory structure for development
+
+- name: Create new release dir
+  file:
+    path: "{{ this_release_path }}"
+    state: directory
+
+# VM: No need to update code due to shared files
+
+# VM: Don't replace database.yml
+
+# VM: Don't replace secrets.yml
+
+# VM: No shared files, no symlinks
+
+# VM: No deployment mode or development, test groups
+- name: Install gems
+  command: /bin/bash -lc 'bundle install'
+  args:
+    chdir: "{{ this_release_path }}"
+
+# VM: No need to precompile assets
+
+- name: "Create & migrate database"
+  command: /bin/bash -lc 'bundle exec rake db:create db:migrate'
+  environment:
+    RAILS_ENV: "{{ rails_env }}"
+  args:
+    chdir: "{{ this_release_path }}"
+
+# VM: No shared files, no symlinks
+
+- name: Restart webserver
+  command: "{{ server_restart_command }}"
+  become: true

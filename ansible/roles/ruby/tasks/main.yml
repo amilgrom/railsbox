@@ -19,21 +19,3 @@
   command: /bin/bash -l -c 'gem install bundler --no-ri --no-rdoc'
   become_user: "{{ ruby_user_name }}"
   when: bundle_gem_check_result.rc != 0
-
-# - name: bundle install
-#   command: /bin/bash -l -c 'bundle install'
-#     chdir: "{{ app_path }}"
-#   sudo_user: "{{ ruby_user_name }}"
-#   when: target == 'virtualbox'
-
-- name: bundle check
-  command: /bin/bash -l -c 'bundle check' chdir={{ app_path }}
-  become_user: '{{ ruby_user_name }}'
-  register: bundle_check_result
-  when: target == 'virtualbox'
-  changed_when: false # never
-
-- name: bundle install
-  command: /bin/bash -l -c 'bundle install' chdir={{ app_path }}
-  become_user: '{{ ruby_user_name }}'
-  when: target == 'virtualbox' and bundle_check_result.rc != 0
