@@ -5,6 +5,14 @@
 - debug:
     msg: "New release path {{ this_release_path }}"
 
+- name: Create app directory
+  file:
+    path: "{{ path }}"
+    state: directory
+    owner: "{{ user_name }}"
+    group: "{{ group_name }}"
+  become: true
+
 - name: Create general directories
   file:
     path: "{{ item }}"
@@ -12,7 +20,6 @@
     owner: "{{ user_name }}"
     group: "{{ group_name }}"
   with_items:
-    - "{{ path }}"
     - "{{ releases_path }}"
     - "{{ shared_path }}"
     - "{{ shared_path }}/tmp"
@@ -34,8 +41,8 @@
     dest: "{{ this_release_path }}"
     version: "{{ git_branch }}"
     accept_hostkey: yes
+  become: false
   register: git
-  become: no
 
 - debug:
     msg: "Cloned repo to commit: {{ git.after }}"
@@ -57,6 +64,15 @@
     group: "{{ group_name }}"
     mode: 0600
 
+- name: "Copy .envrc to {{ shared_path }}"
+  copy: 
+    src: "../../../../../.envrc"
+    dest: "{{ shared_path }}/.envrc"
+    owner: "{{ user_name }}"
+    group: "{{ group_name }}"
+    mode: 0600
+
+
 - name: Delete release's shared files
   file:
     path: "{{ this_release_path }}/{{ item }}"
@@ -68,6 +84,7 @@
     - log
     - tmp
     - vendor/bundle
+    - .envrc
 
 - name: Symlink shared files
   file:
@@ -82,6 +99,7 @@
     - log
     - tmp
     - vendor/bundle
+    - .envrc
 
 - name: Install gems
   command: /bin/bash -lc 'bundle install --deployment --without "development test"'
@@ -108,7 +126,3 @@
     dest: "{{ app_path }}"
     state: link
     force: yes
-
-- name: Restart webserver
-  command: "{{ server_restart_command }}"
-  become: true

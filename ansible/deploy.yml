@@ -1,6 +1,6 @@
 ---
 - hosts: application
-  become: no
   remote_user: "{{ user_name }}"
+  become: false
   roles:
     - deploy

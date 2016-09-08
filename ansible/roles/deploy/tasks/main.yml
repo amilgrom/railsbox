@@ -53,6 +53,7 @@
   command: /bin/bash -lc 'bundle install --deployment --without "development test"'
   args:
     chdir: "{{ this_release_path }}"
+  become: true
   become_user: "{{ ruby_user_name }}"
 
 - name: Precompile assets

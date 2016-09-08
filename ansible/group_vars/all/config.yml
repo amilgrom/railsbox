@@ -29,7 +29,7 @@ databases:
   - postgresql
 postgresql_db_name: new_pg_app
 postgresql_db_user: db_usr
-postgresql_db_password: db_pswd
+postgresql_db_password: db_pswd # need to move to secret file
 postgresql_extensions:
 
 # ownership vars
@@ -43,7 +43,6 @@ user_home_path: "/home/{{ user_name }}"
 
 releases_path: "{{ path }}/releases"
 shared_path: "{{ path }}/shared"
-
 environment_file: "{{ shared_path }}/.envrc"
 
 app_path: "{{ path }}{{ '/current' if target != 'virtualbox' else '' }}"

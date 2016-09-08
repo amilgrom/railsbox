@@ -10,3 +10,4 @@
     - "{{ ruby_version }}"
     - "{{ ruby_version }}-dev"
     - ruby-switch
+  become: true

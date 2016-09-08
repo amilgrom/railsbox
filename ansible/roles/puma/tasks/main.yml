@@ -2,12 +2,7 @@
 - name: Configure puma
   template:
     src: puma.rb.j2
-    dest: "{{ path }}/shared/config/puma.{{ rails_env }}.rb"
-
-- name: Assure that app dir exists
-  file:
-     path: "{{ app_path }}"
-     state: directory
+    dest: "{{ shared_config_path }}/puma.{{ rails_env }}.rb"
 
 # - name: Install puma
 #   command: /bin/bash -l -c 'gem install puma --no-ri --no-rdoc'
@@ -16,6 +11,7 @@
 
 - name: Check if puma is installed
   shell: /bin/bash -l -c 'which puma'
+  become: true
   become_user: "{{ ruby_user_name }}" # make stdin tty
   register: puma_gem_check_result
   changed_when: false # never
@@ -39,4 +35,5 @@
   template:
     src: "upstart.conf.j2"
     dest: "/etc/init/{{ puma_app_name }}.conf"
+  become: true
   notify: restart application

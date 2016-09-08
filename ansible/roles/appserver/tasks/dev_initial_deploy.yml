@@ -5,6 +5,14 @@
 - debug:
     msg: "New release path {{ this_release_path }}"
 
+- name: Create app directory
+  file:
+    path: "{{ path }}"
+    state: directory
+    owner: "{{ user_name }}"
+    group: "{{ group_name }}"
+  become: true
+
 # VM: No directory structure for development
 
 - name: Create new release dir
@@ -21,6 +29,7 @@
 # VM: No shared files, no symlinks
 
 # VM: No deployment mode or development, test groups
+
 - name: Install gems
   command: /bin/bash -lc 'bundle install'
   args:
@@ -36,7 +45,3 @@
     chdir: "{{ this_release_path }}"
 
 # VM: No shared files, no symlinks
-
-- name: Restart webserver
-  command: "{{ server_restart_command }}"
-  become: true

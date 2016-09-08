@@ -3,6 +3,7 @@
   apt:
     update_cache: yes
     cache_valid_time: 3600
+  become: true
 
 - name: Install apt dependencies
   apt:
@@ -23,11 +24,13 @@
     - git
     - libgmp-dev
     - libpq-dev
+  become: true
 
 - name: Install additional packages
   apt:
     name: "{{ item }}"
   with_items: "{{ packages }}"
+  become: true
   when: packages
 
 - name: Create application group
@@ -45,6 +48,7 @@
   template:
     src: read_environment.sh.j2
     dest: /etc/profile.d/read_environment.sh
+  become: true
   notify:
     - restart application
 
