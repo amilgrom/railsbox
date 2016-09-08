@@ -13,6 +13,7 @@
   become_user: "{{ ruby_user_name }}"
   register: bundle_gem_check_result
   changed_when: false # never
+  ignore_errors: true
 
 - name: Install bundler
   command: /bin/bash -l -c 'gem install bundler --no-ri --no-rdoc'

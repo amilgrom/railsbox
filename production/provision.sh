@@ -1,3 +1,3 @@
 #!/bin/bash
 
-ansible-playbook $@ -s -u rails -i inventory ../ansible/site.yml
+ansible-playbook $@ -s -u new_pg_app -i inventory ../ansible/site.yml
