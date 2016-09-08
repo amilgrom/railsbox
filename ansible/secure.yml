@@ -1,0 +1,8 @@
+---
+
+- name: Provide basic security on all servers
+  hosts: all
+  remote_user: root
+
+  roles:
+    - secured_server

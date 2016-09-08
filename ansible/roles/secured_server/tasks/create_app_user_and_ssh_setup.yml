@@ -1,0 +1,29 @@
+---
+
+  - name: Add app_user
+    user:
+      name:     "{{ user_name }}"
+      password: "{{ user_pswd_md5hash }}"
+
+  - name: Add app_user to sudo group
+    shell: "gpasswd -a {{ user_name }} sudo"
+
+  - name: Change ssh shell to bash
+    shell: "usermod -s /bin/bash {{ user_name }}"
+
+  - name: Remove password requirement for app_user sudo
+    lineinfile:
+      dest:     /etc/sudoers.d/90-cloud-init-users
+      create:   yes
+      line:     "{{ item }}"
+      validate: 'visudo -cf %s'
+    with_items:
+      - "# User rules for {{ user_name }}"
+      - "# {{ user_name }} passwordless sudo for ansible automation"
+      - "{{ user_name }} ALL=(ALL) NOPASSWD:ALL"
+
+  - name: Add local rsa ssh key to app_user's authorized_keys
+    authorized_key:
+      user: "{{ user_name }}"
+      key:  "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+      path: "/home/{{ user_name }}/.ssh/authorized_keys"
