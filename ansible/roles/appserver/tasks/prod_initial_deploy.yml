@@ -106,6 +106,24 @@
     - vendor/bundle
     - .envrc
 
+# Initial deploy only
+- name: Check if bundler is installed
+  command: /bin/bash -l -c 'which bundle'
+  args:
+    chdir: "{{ this_release_path }}"
+  register: bundle_gem_check_result
+  changed_when: false # never
+  ignore_errors: true
+
+# Initial deploy only
+- name: Install bundler
+  command: /bin/bash -l -c 'gem install bundler --no-ri --no-rdoc'
+  args:
+    chdir: "{{ this_release_path }}"
+  become: true
+  become_user: "{{ ruby_user_name }}"
+  when: bundle_gem_check_result.rc != 0
+
 - name: Install gems
   command: /bin/bash -lc 'bundle install --deployment --without "development test"'
   args:

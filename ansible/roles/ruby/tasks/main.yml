@@ -7,15 +7,3 @@
 
 - include: rbenv.yml
   when: ruby_install == 'rbenv'
-
-- name: Check if bundler is installed
-  command: /bin/bash -l -c 'which bundle'
-  register: bundle_gem_check_result
-  changed_when: false # never
-  ignore_errors: true
-
-- name: Install bundler
-  command: /bin/bash -l -c 'gem install bundler --no-ri --no-rdoc'
-  become: true
-  become_user: "{{ ruby_user_name }}"
-  when: bundle_gem_check_result.rc != 0
