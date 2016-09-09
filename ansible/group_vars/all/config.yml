@@ -46,7 +46,7 @@ releases_path: "{{ path }}/releases"
 shared_path: "{{ path }}/shared"
 environment_file: "{{ shared_path }}/.envrc"
 
-app_path: "{{ path }}{{ '/current' if target != 'virtualbox' else '' }}"
+app_path: "{{ path }}/current"
 app_public_path: "{{ app_path }}/public"
 app_config_path: "{{ app_path }}/config"
 shared_config_path: "{{ app_path if target == 'virtualbox' else shared_path }}/config"
