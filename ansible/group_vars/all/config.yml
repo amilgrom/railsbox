@@ -9,6 +9,7 @@ vm_os: ubuntu/trusty64
 
 # server vars
 server_name: localhost
+keep_releases: 5
 
 # base vars
 package_bundles:
@@ -56,6 +57,7 @@ app_logs_path: "{{ app_path }}/log"
 server_type: nginx_puma
 
 # puma vars
+puma_app_name: "{{ app_name }}"
 puma_bind_path: "unix://{{ app_temp_path }}/sockets/puma.{{ rails_env }}.sock"
 puma_config_path: "{{ app_config_path }}/puma.{{ rails_env }}.rb"
 puma_pidfile_path: "{{ app_temp_path }}/pids/puma.{{ rails_env }}.pid"

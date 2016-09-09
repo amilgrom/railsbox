@@ -1,6 +1,4 @@
 ---
-- include_vars: ../../puma/defaults/main.yml
-
 - include: prod_initial_deploy.yml
   when: rails_env == 'production'
 

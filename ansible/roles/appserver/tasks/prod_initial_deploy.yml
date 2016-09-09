@@ -5,6 +5,7 @@
 - debug:
     msg: "New release path {{ this_release_path }}"
 
+# Initial deploy only
 - name: Create app directory
   file:
     path: "{{ path }}"
@@ -13,6 +14,7 @@
     group: "{{ group_name }}"
   become: true
 
+# Initial deploy only
 - name: Create general directories
   file:
     path: "{{ item }}"
@@ -47,6 +49,7 @@
 - debug:
     msg: "Cloned repo to commit: {{ git.after }}"
 
+# Initial deploy only
 - name: "Create {{ shared_path }}/config/database.yml"
   template:
     src: database.yml.j2
@@ -56,6 +59,7 @@
     mode: 0600
     backup: yes
 
+# Initial deploy only
 - name: "Copy config/secrets.yml to {{ shared_path }}/config"
   copy: 
     src: "../../../../../config/secrets.yml"
@@ -64,6 +68,7 @@
     group: "{{ group_name }}"
     mode: 0600
 
+# Initial deploy only
 - name: "Copy .envrc to {{ shared_path }}"
   copy: 
     src: "../../../../../.envrc"
@@ -113,6 +118,7 @@
   args:
     chdir: "{{ this_release_path }}"
 
+# Create on initial deploy only
 - name: "Create & migrate database"
   command: /bin/bash -lc 'bundle exec rake db:create db:migrate'
   environment:
@@ -126,3 +132,5 @@
     dest: "{{ app_path }}"
     state: link
     force: yes
+  notify: restart application
+

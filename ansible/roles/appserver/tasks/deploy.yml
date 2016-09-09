@@ -1,6 +1,4 @@
 ---
-- include_vars: ../../puma/defaults/main.yml
-
 - set_fact:
     this_release_path: "{{ releases_path }}/{{ lookup('pipe', 'date +%Y%m%d%H%M%S') }}"
 
@@ -11,6 +9,8 @@
   file:
     path: "{{ this_release_path }}"
     state: directory
+    owner: "{{ user_name }}"
+    group: "{{ group_name }}"
 
 - name: Update code
   git:
@@ -18,10 +18,11 @@
     dest: "{{ this_release_path }}"
     version: "{{ git_branch }}"
     accept_hostkey: yes
+  become: false
   register: git
 
 - debug:
-    msg: "Updated repo from {{ git.before }} to {{ git.after }}"
+    msg: "Updated repo to {{ git.after }}"
 
 - name: Delete release's shared files
   file:
@@ -34,6 +35,7 @@
     - log
     - tmp
     - vendor/bundle
+    - .envrc
 
 - name: Symlink shared files
   file:
@@ -48,13 +50,12 @@
     - log
     - tmp
     - vendor/bundle
+    - .envrc
 
 - name: Install gems
   command: /bin/bash -lc 'bundle install --deployment --without "development test"'
   args:
     chdir: "{{ this_release_path }}"
-  become: true
-  become_user: "{{ ruby_user_name }}"
 
 - name: Precompile assets
   command: /bin/bash -lc 'bundle exec rake assets:precompile'
@@ -77,10 +78,13 @@
     state: link
     force: yes
 
-- name: Restart webserver
-  command: "{{ server_restart_command }}"
+- name: Restart application
+  service:
+    name: "{{ puma_app_name }}"
+    state: restarted
   become: true
 
+# Only on non initial deploy
 - name: Cleanup
   shell: "ls -1t {{ releases_path }}|tail -n +{{ keep_releases + 1 }}|xargs rm -rf"
   args:
