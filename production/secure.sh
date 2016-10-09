@@ -1,3 +1,3 @@
 #!/bin/bash
 
-ansible-playbook $@ -u new_pg_app -i inventory ../ansible/secure.yml
+ansible-playbook $@ -u sample_app -i inventory ../ansible/secure.yml

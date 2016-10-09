@@ -4,7 +4,7 @@ environments:
   - production
 
 # vm vars
-vm_name: new_pg_app
+vm_name: sample_app
 vm_os: ubuntu/trusty64
 
 # server vars
@@ -22,13 +22,13 @@ manual_ruby_version: 2.3.1
 ruby_user_name: "{{ 'root' if ruby_install == 'package' else user_name }}"
 
 # git vars
-git_url: git@bitbucket.org:amilgrom/new_pg_app.git
+git_url: git@bitbucket.org:amilgrom/sample_app_2.git
 git_branch: master
 
 # db vars
 databases:
   - postgresql
-postgresql_db_name: new_pg_app
+postgresql_db_name: sample_pg_app
 postgresql_db_user: db_usr
 postgresql_db_password: db_pswd # need to move to secret file
 postgresql_extensions:
@@ -39,14 +39,14 @@ user_name: "{{ 'vagrant' if target == 'virtualbox' else app_name }}"
 group_name: "{{ user_name }}"
 
 # directory structure vars
-path: /new_pg_app
+path: /sample_app
 user_home_path: "/home/{{ user_name }}"
 
 releases_path: "{{ path }}/releases"
 shared_path: "{{ path }}/shared"
 environment_file: "{{ shared_path }}/.envrc"
 
-app_path: "{{ path }}{{ '/current' if target != 'virtualbox' else '' }}"
+app_path: "{{ path }}/current"
 app_public_path: "{{ app_path }}/public"
 app_config_path: "{{ app_path }}/config"
 shared_config_path: "{{ app_path if target == 'virtualbox' else shared_path }}/config"
