@@ -1,7 +1,0 @@
----
-
-- name: Allow to start / stop app with sudo
-  template:
-    src: sudoers.d.conf.j2
-    dest: "/etc/sudoers.d/{{ app_name }}"
-    validate: 'visudo -cf %s'

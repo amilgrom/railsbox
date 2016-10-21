@@ -22,6 +22,12 @@
       - "# {{ user_name }} passwordless sudo for ansible automation"
       - "{{ user_name }} ALL=(ALL) NOPASSWD:ALL"
 
+# - name: Allow to start / stop app with sudo
+#   template:
+#     src: sudoers.d.conf.j2
+#     dest: "/etc/sudoers.d/{{ app_name }}"
+#     validate: 'visudo -cf %s'
+
   - name: Add local rsa ssh key to app_user's authorized_keys
     authorized_key:
       user: "{{ user_name }}"
