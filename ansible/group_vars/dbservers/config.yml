@@ -1,0 +1,7 @@
+---
+databases:
+  - postgresql
+postgresql_db_name: sample_pg_app
+postgresql_db_user: db_usr
+postgresql_db_password: db_pswd # need to move to secret file
+postgresql_extensions:

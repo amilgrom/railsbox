@@ -1,5 +1,5 @@
 ---
-- hosts: application
+- hosts: appservers
   remote_user: "{{ user_name }}"
   tasks:
-    - include: roles/appserver/tasks/deploy.yml
+    - include: roles/application/tasks/deploy.yml

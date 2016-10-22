@@ -1,5 +1,4 @@
 ---
-
   - name: Disable root ssh
     lineinfile: 
       dest:   /etc/ssh/sshd_config

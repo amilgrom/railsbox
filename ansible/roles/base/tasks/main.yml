@@ -49,8 +49,6 @@
     src: read_environment.sh.j2
     dest: /etc/profile.d/read_environment.sh
   become: true
-  notify:
-    - restart application
 
 - name: Create temp directory
   file:

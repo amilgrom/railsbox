@@ -1,17 +1,15 @@
-198.199.123.148 ansible_ssh_port=22
+digitalocean ansible_host=198.199.123.148 ansible_port=22
 
-[all]
-198.199.123.148
+[hdds]
 
-[application]
-198.199.123.148
+[dbservers]
+digitalocean
 
-[vm]
-198.199.123.148
+[appservers]
+digitalocean
+
+[webservers]
+digitalocean
 
 [production]
-198.199.123.148
-
-[postgresql]
-198.199.123.148
-
+all

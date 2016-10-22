@@ -1,5 +1,4 @@
-# ---
-
+---
 - include: create_app_user_and_ssh_setup.yml
-# - include: allow_ssh_enable_firewall.yml
+- include: allow_ssh_enable_firewall.yml
 - include: disable_root_ssh.yml

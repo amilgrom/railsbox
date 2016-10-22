@@ -1,10 +1,18 @@
 ---
-- hosts: vm
+- name: Provide basic security on all servers
+  hosts: all
+  remote_user: root
   become: true
+  roles:
+    - secured_server
+
+- name: Create swap files on hard disk servers
+  hosts: hdds
   roles:
     - swap
 
-- hosts: all
+- name: Setup app proxy on all servers if specified
+  hosts: all
   gather_facts: no
   roles:
     - { role: apt_proxy, when: use_apt_proxy }
@@ -15,17 +23,23 @@
         cache_valid_time: 3600
       become: true
 
-- hosts: postgresql
-  roles:
-    - postgresql
-
-
-- hosts: application
-  handlers:
+- name: Setup database servers
+  hosts: dbservers
   roles:
     - base
-    - { role: ruby, tags: ruby }
+    - postgresql
+
+- name: Setup application servers
+  hosts: appservers
+  roles:
+    - base
     - vim
-    - appserver
+    - { role: ruby, tags: ruby }
+    - application
     - puma
+
+- name: Setup web servers
+  hosts: webservers
+  roles:
+    - base
     - nginx

@@ -1,5 +1,4 @@
 ---
-
   - name: Setup basic firewall
     ufw:
       port: ssh

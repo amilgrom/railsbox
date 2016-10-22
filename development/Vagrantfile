@@ -72,10 +72,10 @@ Vagrant.configure('2') do |config|
     config.vm.provision 'ansible' do |ansible|
       ansible.playbook = '../ansible/site.yml'
       ansible.groups = {
-        'application' => %w(sample_app),
-        'vm' => %w(sample_app),
-        'postgresql' => %w(sample_app),
-        'development:children' => %w(application vm postgresql),
+        'dbservers' => %w(sample_app),
+        'appservers' => %w(sample_app),
+        'webservers' => %w(sample_app),
+        'development:children' => %w(dbserves appservers webservers),
       }
       ansible.tags = ENV['TAGS']
       ansible.raw_arguments = ENV['ANSIBLE_ARGS']
