@@ -75,7 +75,7 @@ Vagrant.configure('2') do |config|
         'dbservers' => %w(sample_app),
         'appservers' => %w(sample_app),
         'webservers' => %w(sample_app),
-        'development:children' => %w(dbserves appservers webservers),
+        'development:children' => %w(dbservers appservers webservers),
       }
       ansible.tags = ENV['TAGS']
       ansible.raw_arguments = ENV['ANSIBLE_ARGS']

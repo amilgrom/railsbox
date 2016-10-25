@@ -11,5 +11,7 @@ digitalocean
 [webservers]
 digitalocean
 
-[production]
-all
+[production:children]
+dbservers
+appservers
+webservers
