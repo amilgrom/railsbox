@@ -11,6 +11,12 @@
   roles:
     - swap
 
+- name: Mount filesystems
+  hosts: appservers
+  become: true
+  roles:
+   - linux_filesystem
+
 - name: Setup app proxy on all servers if specified
   hosts: all
   gather_facts: no
