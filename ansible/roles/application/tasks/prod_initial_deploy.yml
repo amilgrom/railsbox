@@ -61,6 +61,7 @@
     dest: "{{ this_release_path }}"
     version: "{{ git_branch }}"
     accept_hostkey: yes
+    clone: no
     update: no
   become: false
   register: git
@@ -167,3 +168,4 @@
     state: link
     force: yes
   notify: restart application
+  when: git.after != git.before
