@@ -1,14 +1,10 @@
 ---
-  - name: Add app_user
+  - name: Add app_user with sudo group and bash shell
     user:
       name:     "{{ user_name }}"
+      groups:   "sudo"
       password: "{{ user_pswd_md5hash }}"
-
-  - name: Add app_user to sudo group
-    shell: "gpasswd -a {{ user_name }} sudo"
-
-  - name: Change ssh shell to bash
-    shell: "usermod -s /bin/bash {{ user_name }}"
+      shell:    "/bin/bash"
 
   - name: Remove password requirement for app_user sudo
     lineinfile:
