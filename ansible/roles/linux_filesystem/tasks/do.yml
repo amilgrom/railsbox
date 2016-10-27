@@ -13,13 +13,13 @@
 # sudo mkfs.ext4 /dev/disk/by-id/scsi-0DO_Volume_volume-nyc1-01-part1
 - name: "Format volume: with {{ filesystem_format }} filesystem"
   filesystem:
-    dev:    "{{ disk_path }}"
+    dev:    "{{ disk_path }}-part1"
     fstype: "{{ filesystem_format }}"
 
 - name: Mount filesystem
   mount:
-    name:   "{{ mount_path }}"
-    src:    "{{ disk_path }}"
+    name:   "{{ mount_path }}-part1"
+    src:    "{{ disk_path }}-part1"
     fstype: "{{ filesystem_format }}"
     opts:   "defaults,discard"
     state:  mounted
