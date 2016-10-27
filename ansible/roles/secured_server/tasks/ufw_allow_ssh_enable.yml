@@ -1,8 +1,0 @@
----
-  - name: Setup basic firewall
-    ufw:
-      port: ssh
-      rule: allow
-      proto: tcp
-      state: enabled
-    become: true

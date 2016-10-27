@@ -1,0 +1,22 @@
+---
+  - name: Allow ssh port through firewall
+    ufw:
+      port: ssh
+      rule: allow
+      proto: tcp
+    become: true
+
+  - name: Default to deny all incoming connections
+    ufw:
+      rule: deny
+    become: true
+
+  - name: Default to deny all outgoing connections
+    ufw:
+      rule: deny
+    become: true
+
+  - name: Enable firewall
+    ufw:
+      state: enabled
+    become: true

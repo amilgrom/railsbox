@@ -1,0 +1,12 @@
+---
+  - name: Allow SMTP ports through firewall
+    ufw:
+      port: "{{ item.port }}"
+      rule: allow
+      proto: "{{ item.proto }}"
+    with_items:
+      - { port: 587, proto: tcp } #mailer
+      - { port: 587, proto: udp } #mailer
+      - { port: 25,  proto: tcp } #mailer
+      - { port: 25,  proto: udp } #mailer
+    become: true
