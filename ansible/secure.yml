@@ -3,4 +3,6 @@
   hosts: all
   remote_user: root
   roles:
-    - secured_server
+    - ufw
+    - app_user
+    - no_root
