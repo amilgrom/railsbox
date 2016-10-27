@@ -1,6 +1,7 @@
 ---
 - name: Setup web servers
   hosts: webservers
+  remote_user: "{{ user_name }}"
   roles:
     - base
     - nginx
