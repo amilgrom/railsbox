@@ -3,4 +3,5 @@
   service:
     name: "{{ puma_app_name }}"
     state: restarted
+  ignore_errors: true
   become: true
