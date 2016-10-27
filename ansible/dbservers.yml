@@ -1,0 +1,6 @@
+---
+- name: Setup database servers
+  hosts: dbservers
+  roles:
+    - base
+    - postgresql

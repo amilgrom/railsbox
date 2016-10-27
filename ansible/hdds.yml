@@ -1,0 +1,5 @@
+---
+- name: Create swap files on hard disk servers
+  hosts: hdds
+  roles:
+    - swap

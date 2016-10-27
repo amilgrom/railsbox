@@ -15,6 +15,7 @@
   filesystem:
     dev:    "{{ disk_path }}-part1"
     fstype: "{{ filesystem_format }}"
+  become: true
 
 - name: Mount filesystem
   mount:
@@ -23,3 +24,4 @@
     fstype: "{{ filesystem_format }}"
     opts:   "defaults,discard"
     state:  mounted
+  become: true

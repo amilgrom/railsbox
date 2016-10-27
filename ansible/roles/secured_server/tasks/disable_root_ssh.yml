@@ -4,6 +4,7 @@
       dest:   /etc/ssh/sshd_config
       regexp: "^PermitRootLogin yes"
       line:   "PermitRootLogin no"
+    become: true
 
   - name: Restart ssh service
     service:
