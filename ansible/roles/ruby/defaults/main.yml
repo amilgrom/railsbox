@@ -1,4 +1,6 @@
 ---
+profile_d_path: "{{ user_home_path }}/profile.d"
+
 rvm1_install_path: "/home/{{ ansible_ssh_user }}/.rvm"
 rvm1_rvm: "{{ rvm1_install_path }}/bin/rvm"
 rvm1_install_flags: "--auto-dotfiles --user-install"

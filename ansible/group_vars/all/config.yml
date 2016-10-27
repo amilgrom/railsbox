@@ -15,5 +15,7 @@ app_name: sample_app
 user_name: "{{ 'vagrant' if target == 'virtualbox' else app_name }}"
 group_name: "{{ user_name }}"
 
+profile_d_path: "{{ user_home_path }}/profile.d"
+
 # apt vars
 use_apt_proxy: false
