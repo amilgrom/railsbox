@@ -13,10 +13,10 @@
       policy: deny
     become: true
 
-  - name: Default to deny all outgoing connections
+  - name: Default to allow all outgoing connections
     ufw:
       direction: outgoing
-      policy: deny
+      policy: allow
     become: true
 
   - name: Enable firewall
