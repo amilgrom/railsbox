@@ -1,12 +1,11 @@
 ---
-  - name: Allow SMTP ports through firewall
+  - name: "Allow {{ item.port }}/{{ item.proto }} through firewall ({{ item.desc }})"
     ufw:
+      direction: "{{ item.dir }}"
       port: "{{ item.port }}"
       rule: allow
       proto: "{{ item.proto }}"
     with_items:
-      - { port: 587, proto: tcp } #mailer
-      - { port: 587, proto: udp } #mailer
-      - { port: 25,  proto: tcp } #mailer
-      - { port: 25,  proto: udp } #mailer
+      - { dir: out, proto: tcp, port: 53,  desc: "gem install" }
+      # - { dir: out, proto: tcp, port: 587, desc: "rails mailer" }
     become: true
