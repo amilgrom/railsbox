@@ -1,12 +1,11 @@
 ---
-  - name: Add app_user with sudo group and bash shell
+  - name: "Add user:{{ user_name }} with sudo group and bash shell"
     user:
       name:     "{{ user_name }}"
-      groups:   "sudo"
       password: "{{ user_pswd_md5hash }}"
       shell:    "/bin/bash"
 
-  - name: Remove password requirement for app_user sudo
+  - name: "Add {{ user_name }} passwordless sudo for ansible automation"
     lineinfile:
       dest:     /etc/sudoers.d/90-cloud-init-users
       create:   yes
@@ -23,7 +22,7 @@
 #     dest: "/etc/sudoers.d/{{ app_name }}"
 #     validate: 'visudo -cf %s'
 
-  - name: Add local rsa ssh key to app_user's authorized_keys
+  - name: "Add local rsa ssh key to {{ user_name }}'s authorized_keys"
     authorized_key:
       user: "{{ user_name }}"
       key:  "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
