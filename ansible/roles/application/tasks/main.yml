@@ -4,5 +4,3 @@
 
 - include: dev_initial_deploy.yml
   when: rails_env == 'development'
-
-- include: ufw_allow_application_ports.yml
