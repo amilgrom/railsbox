@@ -3,20 +3,20 @@
     ufw:
       direction: in
       port: ssh
-      rule: allow
+      rule: limit
       proto: tcp
     become: true
 
   - name: Default to deny all incoming connections
     ufw:
-      direction: in
-      rule: deny
+      direction: incoming
+      policy: deny
     become: true
 
   - name: Default to deny all outgoing connections
     ufw:
-      direction: out
-      rule: deny
+      direction: outgoing
+      policy: deny
     become: true
 
   - name: Enable firewall
