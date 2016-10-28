@@ -141,11 +141,13 @@
   become_user: "{{ ruby_user_name }}"
   when: bundle_gem_check_result.rc != 0
 
+# Not showing idempotent
 - name: Install gems
   command: /bin/bash -lc 'bundle install --deployment --without "development test"'
   args:
     chdir: "{{ this_release_path }}"
 
+# Not showing idempotent
 - name: Precompile assets
   command: /bin/bash -lc 'bundle exec rake assets:precompile'
   environment:
@@ -153,6 +155,7 @@
   args:
     chdir: "{{ this_release_path }}"
 
+# Not showing idempotent
 # Create on initial deploy only
 - name: "Create & migrate database"
   command: /bin/bash -lc 'bundle exec rake db:create db:migrate'
