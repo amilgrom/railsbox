@@ -4,13 +4,8 @@
     src: puma.rb.j2
     dest: "{{ shared_config_path }}/puma.{{ rails_env }}.rb"
 
-# - name: Install puma
-#   command: /bin/bash -l -c 'gem install puma --no-ri --no-rdoc'
-#     chdir: "{{ app_path }}"
-#   sudo: no
-
 - name: Check if puma is installed
-  shell: /bin/bash -l -c 'which puma'
+  shell: /bin/bash -l -c 'which puma' chdir={{ app_path }}
   become: true
   become_user: "{{ ruby_user_name }}" # make stdin tty
   register: puma_gem_check_result
