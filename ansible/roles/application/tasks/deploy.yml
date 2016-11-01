@@ -35,7 +35,7 @@
     - log
     - tmp
     - vendor/bundle
-    - .envrc
+    - .env
 
 - name: Symlink shared files
   file:
@@ -50,7 +50,7 @@
     - log
     - tmp
     - vendor/bundle
-    - .envrc
+    - .env
 
 - name: Install gems
   command: /bin/bash -lc 'bundle install --deployment --without "development test"'

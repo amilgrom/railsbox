@@ -16,7 +16,7 @@ user_home_path: "/home/{{ user_name }}"
 keep_releases: 5
 releases_path: "{{ path }}/releases"
 shared_path: "{{ path }}/shared"
-environment_file: "{{ shared_path }}/.envrc"
+environment_file: "{{ shared_path }}/.env"
 
 app_path: "{{ path }}/current"
 app_public_path: "{{ app_path }}/public"

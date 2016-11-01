@@ -44,10 +44,10 @@
     mode: 0600
 
 # Initial deploy only
-- name: "Copy .envrc to {{ shared_path }}"
+- name: "Copy .env to {{ shared_path }}"
   copy: 
-    src: "../../../../../.envrc"
-    dest: "{{ shared_path }}/.envrc"
+    src: "../../../../../.env"
+    dest: "{{ shared_path }}/.env"
     owner: "{{ user_name }}"
     group: "{{ group_name }}"
     mode: 0600
@@ -105,7 +105,7 @@
         - log
         - tmp
         - vendor/bundle
-        - .envrc
+        - .env
 
     - name: Symlink shared files
       file:
@@ -120,7 +120,7 @@
         - log
         - tmp
         - vendor/bundle
-        - .envrc
+        - .env
   when: git.after != git.before
 
 # Initial deploy only
