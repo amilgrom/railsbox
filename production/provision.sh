@@ -1,3 +1,3 @@
 #!/bin/bash
 
-ansible-playbook $@ -u sample_app -i inventory ../ansible/provision.yml
+ansible-playbook $@ -i inventory ../ansible/provision.yml
