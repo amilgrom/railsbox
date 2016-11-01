@@ -1,6 +1,3 @@
 ---
 - include: secure.yml
-- include: hdds.yml
-- include: dbservers.yml
-- include: appservers.yml
-- include: webservers.yml
+- include: provision.yml
