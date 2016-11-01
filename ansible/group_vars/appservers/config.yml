@@ -6,7 +6,7 @@ manual_ruby_version: 2.3.1
 ruby_user_name: "{{ 'root' if ruby_install == 'package' else user_name }}"
 
 # git vars
-git_url: git@bitbucket.org:amilgrom/sample_app_2.git
+git_url: "git@bitbucket.org:amilgrom/{{ app_name }}.git"
 git_branch: master
 
 # directory structure vars
